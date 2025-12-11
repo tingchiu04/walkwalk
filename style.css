@@ -1,0 +1,285 @@
+/* ================= 全局設定 ================= */
+:root {
+    --bg-paper: #f4f1ea;     
+    --ink-black: #2b2b2b;    
+    --brick-red: #c05a4e;    
+    --moss-green: #4a5e4d;   
+    --gold: #b09a68;         
+    --shadow: rgba(43, 43, 43, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: "Noto Serif TC", "Songti TC", serif;
+    background-color: var(--bg-paper);
+    color: var(--ink-black);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ================= 頂部選單 (更新) ================= */
+.game-header {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: transparent;
+    border-bottom: 2px solid var(--brick-red);
+    z-index: 50; /* 提高層級，確保選單在最上層 */
+    position: relative;
+}
+
+.stage-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--ink-black);
+    letter-spacing: 2px;
+}
+
+/* 漢堡選單容器 */
+.menu-container {
+    position: relative;
+}
+
+/* 漢堡按鈕 */
+.hamburger-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.8em;
+    color: var(--moss-green);
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.hamburger-btn:active {
+    transform: scale(0.9);
+}
+
+/* 下拉選單 */
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: #fff;
+    border: 1px solid var(--gold);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: top right;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.dropdown-menu.hidden {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu-item {
+    padding: 12px 15px;
+    font-size: 1rem;
+    color: var(--ink-black);
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: var(--bg-paper);
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item.danger {
+    color: var(--brick-red);
+}
+
+/* ================= 彈出視窗 (Modal) ================= */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 8px;
+    position: relative;
+    border: 2px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    text-align: center;
+    color: var(--brick-red);
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--gold);
+    padding-bottom: 10px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8em;
+    color: #999;
+    cursor: pointer;
+}
+
+.close-modal:hover { color: var(--brick-red); }
+
+/* 相簿網格 */
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 15px;
+}
+
+.album-item {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.album-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.album-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}
+
+.album-caption {
+    font-size: 0.8em;
+    padding: 5px;
+    text-align: center;
+    color: #666;
+    background: #f9f9f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.empty-hint {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* 章節列表 */
+.chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chapter-list button {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid var(--moss-green);
+    color: var(--moss-green);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.chapter-list button:hover {
+    background: var(--moss-green);
+    color: #fff;
+}
+
+/* ================= 燈箱效果 (保持) ================= */
+#lightbox {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#lightbox.hidden { display: none; }
+.lightbox-content { max-width: 95%; max-height: 90%; text-align: center; }
+#lightbox-img { max-width: 100%; max-height: 70vh; border: 4px solid #fff; }
+#lightbox-caption { color: #fff; margin-top: 15px; font-size: 1.1em; letter-spacing: 1px; }
+
+/* ================= 其他基本設定 (保持) ================= */
+/* ... (保留背景、聊天室、氣泡等原本的 CSS，只需將 .reset-btn 相關移除或忽略即可) ... */
+
+/* 重複一次核心樣式確保完整性 */
+#bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: -1; opacity: 0.15; filter: sepia(0.3) grayscale(0.2); transition: background-image 1s ease-in-out; }
+#paper-texture { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-paper); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"); z-index: -2; pointer-events: none; }
+#game-container { max-width: 600px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; position: relative; background: rgba(244, 241, 234, 0.6); box-shadow: 0 0 30px rgba(0,0,0,0.1); }
+#chat-flow { flex: 1; overflow-y: auto; padding: 20px 20px 250px 20px; scroll-behavior: smooth; display: flex; flex-direction: column; gap: 20px; }
+#chat-flow::-webkit-scrollbar { width: 6px; }
+#chat-flow::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+.bubble { max-width: 88%; padding: 15px 18px; font-size: 1.05rem; line-height: 1.7; position: relative; opacity: 0; transform: translateY(10px); animation: fadeUp 0.6s ease forwards; box-shadow: 2px 2px 5px var(--shadow); letter-spacing: 0.5px; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.bubble.npc { align-self: flex-start; background: #fff; color: var(--ink-black); border: 1px solid #e0dcd0; border-radius: 2px 15px 15px 15px; margin-left: 50px; }
+.bubble.npc::before { content: ''; position: absolute; left: -50px; top: 0; width: 42px; height: 42px; background-image: url('avatar_ahgei.png'); background-size: cover; background-position: center; border-radius: 50%; border: 2px solid var(--brick-red); background-color: #fff; }
+.npc-name { font-size: 0.8em; color: var(--brick-red); font-weight: bold; display: block; margin-bottom: 6px; border-bottom: 1px dashed rgba(192, 90, 78, 0.3); width: fit-content; }
+.bubble.system { align-self: center; background: rgba(74, 94, 77, 0.1); color: var(--moss-green); font-size: 0.95em; text-align: center; border-radius: 4px; border: 1px solid var(--moss-green); padding: 8px 20px; }
+.bubble.player { align-self: flex-end; background: var(--moss-green); color: #f4f1ea; border-radius: 15px 2px 15px 15px; }
+.bubble.image-msg { align-self: center; background: #fff; padding: 10px; border: 1px solid #d0c8b6; box-shadow: 3px 3px 0px rgba(0,0,0,0.1); transform: rotate(-1deg); cursor: pointer; transition: transform 0.2s; }
+.bubble.image-msg:hover { transform: scale(1.02) rotate(0deg); }
+.chat-img { width: 100%; border-radius: 2px; filter: sepia(0.2) contrast(0.9); margin-bottom: 8px; }
+.img-desc { font-size: 0.85em; color: #666; text-align: center; display: block; font-style: italic; }
+.card-message { background: #fff; padding: 30px 20px; border: 1px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; margin: 10px 0; position: relative; }
+.card-message::after { content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px; border: 1px solid var(--gold); pointer-events: none; }
+.cover-img-wrapper { width: 100%; margin-bottom: 20px; border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.cover-img { width: 100%; height: auto; display: block; }
+.main-title { font-size: 2.2em; color: var(--ink-black); margin: 10px 0 5px 0; font-weight: bold; }
+.sub-title { color: var(--brick-red); font-size: 1.1em; margin-bottom: 15px; }
+.divider { width: 40px; height: 2px; background: var(--gold); margin: 0 auto 15px auto; }
+.intro-text { font-size: 1rem; color: #555; margin-bottom: 20px; }
+.start-btn { background: var(--brick-red); color: #fff; border: none; padding: 15px 30px; font-size: 1.2em; border-radius: 4px; cursor: pointer; font-family: inherit; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(192, 90, 78, 0.3); position: relative; z-index: 2; }
+#controls-area { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(244, 241, 234, 1) 90%, rgba(244, 241, 234, 0)); z-index: 20; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+#controls-area.hidden { transform: translateY(120%); }
+#choices-container { display: flex; flex-direction: column; gap: 12px; }
+.choice-btn { background: #fff; border: 1px solid var(--brick-red); color: var(--brick-red); padding: 16px; font-family: inherit; font-size: 1.05rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(192, 90, 78, 0.1); transition: all 0.2s; position: relative; }
+.choice-btn:hover { background: var(--brick-red); color: #fff; }
+.choice-btn:active { transform: scale(0.98); }
+strong { color: var(--brick-red); font-weight: bold; }
