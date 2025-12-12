@@ -82,84 +82,110 @@
 
         <div data-stage="1" data-bg="bg-stream-old" data-title="任務一：林子溪訊號">
             <div class="dialog" data-role="npc" data-content="汪！嘿！現在很少有人類能聽見我的聲音了。"></div>
-            <div class="dialog" data-role="npc" data-content="我是 **阿給**。一隻在這裡跑了三百多年的靈魂導遊。今天的風聞起來有一股…很久以前的味道。"></div>
+            <div class="dialog" data-role="npc" data-content="自我介紹一下，我是 **阿給**。別怕，雖然我看得到你，但你可能看不到我。我只是一隻在這裡跑了三百多年的靈魂導遊。"></div>
+            <div class="dialog" data-role="npc" data-content="今天的風聞起來有一股…很久以前的味道。既然你能接通訊號，代表你是被『選中』的人。"></div>
+            <div class="dialog" data-role="npc" data-content="請幫我一個忙，這條溪流底下藏著很多被遺忘的故事，我的記憶有點模糊了，需要你幫我拼湊回來。"></div>
             
-            <div class="dialog" data-role="system" data-content="📍 移動指引：請參考地圖，前往「公司田溪」溪畔。"></div>
-            <div class="dialog" data-role="image" data-src="map_stage1.jpg" data-desc="路線圖：前往公司田溪溪畔 (第一站)"></div>
+            <div class="dialog" data-role="system" data-content="📍 任務目標：跟隨地圖前往「公司田溪」溪畔。"></div>
+            <div class="dialog" data-role="image" data-src="map_stage1.jpg" data-desc="移動指引：前往公司田溪溪畔"></div>
             
-            <div class="dialog" data-role="npc" data-content="這條溪流底下藏著很多被遺忘的故事，請幫我拼湊回來。"></div>
             <div class="choice-point" data-id="s1-arrival">
-                <button data-next="s1-part1">📍 我已抵達溪畔</button>
+                <button data-next="s1-part1">📍 開啟地圖並確認已抵達溪邊</button>
             </div>
             
             <div id="s1-part1" class="hidden-group">
                 <div class="dialog" data-role="npc" data-content="做得好。你現在腳下踩的這塊土地，和三百年前可是大不相同。"></div>
-                <div class="dialog" data-role="npc" data-content="考考你：這裡叫『公司田溪』，你覺得這個『公司』指的是什麼？"></div>
+                <div class="dialog" data-role="npc" data-content="我要考考你的觀察力了。抬頭看看周圍，再看看你的手機地圖，這裡明明叫『公司田溪』，你覺得這個『公司』指的是什麼？"></div>
                 <div class="choice-point" data-id="q1-company">
-                    <button data-val="A" data-next="s1-part2">A. 現代商業公司</button>
-                    <button data-val="B" data-next="s1-part2">B. 公家機關地盤</button>
-                    <button data-val="C" data-next="s1-part2">C. 眾人「公共合作」開墾</button>
+                    <button data-val="A" data-next="s1-part2">A. 這裡以前有很多現代商業公司</button>
+                    <button data-val="B" data-next="s1-part2">B. 這是公家機關或司法單位的地盤</button>
+                    <button data-val="C" data-next="s1-part2">C. 這是指眾人「公共合作」開墾的意思</button>
                 </div>
             </div>
             
             <div id="s1-part2" class="hidden-group">
-                <div class="dialog" data-role="npc" data-content="其實這裡最早叫 **林子溪**。1812年漢人合力開墾，『公司』就是『公共合作』的意思，所以才改口叫 **公司田溪**。"></div>
-                <div class="dialog" data-role="npc" data-content="現在請把視線移開螢幕，看看眼前的溪流。水流看起來可能不大，對吧？"></div>
+                <div class="dialog" data-role="npc" data-content="其實啊，這個地方最早叫做 **林子溪** 。如果你現在用地圖搜尋，說不定還能找到這個舊名字。"></div>
+                <div class="dialog" data-role="npc" data-content="早在 **1624 年** ，紅頭髮的荷蘭人為了供應守軍物資，就已經在這裡開闢種田了。但也有一種說法，是關於漢人移民的歷史。"></div>
+                <div class="dialog" data-role="npc" data-content="到了 **1812 年** ，漢人在這裡合力組織開墾。當年的石碑上記載，『公司』就是『公共合作』的意思。因為這條溪流經了大家共同開墾的田地，所以人們才改口叫它 **公司田溪** 。"></div>
+                <div class="dialog" data-role="npc" data-content="好，現在請把視線從螢幕移開。我要你看一樣東西。請觀察眼前的溪流與兩岸的植物。現在的水流看起來可能不大，對吧？"></div>
                 <div class="choice-point" data-id="q2-observe">
-                    <button data-val="A" data-next="s1-part3">🌿 看到雜草與水泥護岸</button>
-                    <button data-val="B" data-next="s1-part3">🌊 想像這裡曾是大河</button>
+                    <button data-val="A" data-next="s1-part3">🌿 看到雜草與水泥護岸，水流細小</button>
+                    <button data-val="B" data-next="s1-part3">🌊 想像這裡曾經是可以行船的灌溉大河</button>
                 </div>
             </div>
             
             <div id="s1-part3" class="hidden-group">
-                <div class="dialog" data-role="npc" data-content="不管是哪種景象，這條溪都曾是灌溉這片土地的『母親河』。"></div>
-                <div class="dialog" data-role="npc" data-content="你知道在還沒有觀光客之前，淡水居民主要靠什麼維生嗎？答案是 **茶葉與稻米**！"></div>
+                <div class="dialog" data-role="npc" data-content="不管是哪一種景象，這條溪都曾是灌溉這片土地的『母親河』。它以前可是支撐了好幾個聚落，養活了無數人呢。"></div>
+                <div class="dialog" data-role="npc" data-content="說到這裡，我想問問你對淡水的印象。現在大家來淡水都吃魚丸、吃阿給（嘿對，就是我的名字），順便逛逛紅毛城。但你知道在還沒有觀光客之前，住在這裡的人主要靠什麼維生嗎？"></div>
+                <div class="dialog" data-role="npc" data-content="答案是 **茶葉與稻米** ！是不是很意外？"></div>
+                <div class="dialog" data-role="npc" data-content="直至今日，這附近的深處仍有茶廠和傳統農產業在運作喔。這片土地不只是為了觀光而存在，它承載了厚厚的人文歷史與技藝。"></div>
                 <div class="dialog" data-role="image" data-src="tea_factory.jpg" data-desc="目前還有產茶的淡水茶工廠－水碓製茶廠"></div>
-                <div class="dialog" data-role="npc" data-content="好了，前面還有一個更重要的東西，是你一定要親眼確認的...跟緊我！"></div>
+                <div class="dialog" data-role="npc" data-content="好了，故事碎片收集得差不多了。但我感覺前面還有一個更重要的東西，是你一定要親眼確認的...跟緊我，別走丟囉！"></div>
+                
                 <div class="choice-point" data-id="s1-end">
-                    <button data-action="nextStage">🐾 跟隨阿給前往下一站</button>
+                    <button data-action="nextStage">🐾 跟隨阿給前往下一個地點</button>
                 </div>
             </div>
         </div>
 
         <div data-stage="2" data-bg="bg-cement" data-title="任務二：沉默的入侵者">
-            <div class="dialog" data-role="system" data-content="📍 移動指引：請沿著溪流往下游走，尋找「可過河處」。"></div>
-            <div class="dialog" data-role="image" data-src="map_stage2.jpg" data-desc="路線圖：前往公司田溪可過河處 (第二站)"></div>
+            <div class="dialog" data-role="system" data-content="📍 任務目標：跟隨地圖前往「公司田溪」溪可過對岸之處。"></div>
+            <div class="dialog" data-role="image" data-src="map_stage2.jpg" data-desc="移動指引：前往可過河處"></div>
             
-            <div class="dialog" data-role="npc" data-content="請抬頭看看四周。那些越蓋越高的大樓，像巨人的柵欄把天空圍起來了。為了讓人類住進『新市鎮』，這條溪被迫變成了排水溝。"></div>
-            <div class="dialog" data-role="npc" data-content="往下走到可過河處，仔細觀察溪流兩側河岸。你看到河岸大部分是什麼材質？"></div>
-            <div class="choice-point" data-id="q3-material">
-                <button data-val="A" data-next="s2-part1">A. 泥土與青苔石頭</button>
-                <button data-val="B" data-next="s2-part1">B. 整齊灰白的水泥牆</button>
-                <button data-val="C" data-next="s2-part1">C. 茂密的紅樹林</button>
+            <div class="choice-point" data-id="s2-arrival">
+                <button data-next="s2-part1">📍 我已抵達可過河處</button>
             </div>
-            
+
             <div id="s2-part1" class="hidden-group">
-                <div class="dialog" data-role="npc" data-content="這叫做『**三面光**』工程。為了防洪，原本讓小螃蟹躲藏的泥土不見了。"></div>
-                <div class="dialog" data-role="system" data-content="📷 行動任務：拍攝一張包含「水泥河岸」與「溪流」的照片。"></div>
-                <div class="choice-point" data-id="s2-photo">
-                    <button data-next="s2-part2">📸 我已拍好！</button>
+                <div class="dialog" data-role="npc" data-content="剛剛我們還在說這裡曾經是灌溉許多聚落的『母親河』，但請你抬起頭，看看四周。"></div>
+                <div class="dialog" data-role="npc" data-content="那些越蓋越高的大樓，是不是像巨人的柵欄一樣把天空圍起來了？為了讓更多人類住進『新市鎮』，這條溪被迫『瘦身』了。"></div>
+                <div class="dialog" data-role="npc" data-content="以前她像一條隨意伸展手臂的蛇，現在卻被夾得直直的，變成了一條……功能性的排水溝。"></div>
+                <div class="dialog" data-role="system" data-content="📍 觀察任務：尋找消失的泥土"></div>
+                <div class="dialog" data-role="npc" data-content="往下到可以過河到對面之處，要小心注意安全喔！並請仔細觀察溪流的兩側河岸。請問你眼前看到的河岸，大部分是由什麼材質構成的？"></div>
+                <div class="choice-point" data-id="q3-material">
+                    <button data-val="A" data-next="s2-part2">A. 鬆軟的泥土與長滿青苔的大石頭</button>
+                    <button data-val="B" data-next="s2-part2">B. 整齊灰白的水泥牆與混凝土塊</button>
+                    <button data-val="C" data-next="s2-part2">C. 茂密的原始紅樹林</button>
                 </div>
             </div>
             
             <div id="s2-part2" class="hidden-group">
-                <div class="dialog" data-role="image" data-src="river_compare.jpg" data-desc="對比一下過去未整修的自然樣態"></div>
-                <div class="dialog" data-role="npc" data-content="不只家變了，連『居民』也換了。霸佔這裡的，是一群穿著黑盔甲的怪物。"></div>
-                <div class="dialog" data-role="npc" data-content="幫我找找水底有沒有黑色、靜止不動，或者背上有硬刺的魚影？"></div>
-                <div class="choice-point" data-id="q4-fish">
-                    <button data-val="A" data-next="s2-part3">🌑 黑色、像石頭的大魚</button>
-                    <button data-val="B" data-next="s2-part3">🌫️ 水太混濁沒看到</button>
+                <div class="dialog" data-role="npc" data-content="這叫做『**三面光**』工程，這就是城市發展的代價，為了防洪和蓋房子，原本多孔隙、可以讓小螃蟹、小蝦子躲藏的泥土岸邊不見了。水流雖然變快了，但生命也更留不住了。"></div>
+                <div class="dialog" data-role="system" data-content="📷 行動任務：拍攝一張包含「水泥河岸」與「溪流」的照片"></div>
+                <div class="choice-point" data-id="s2-photo">
+                    <button data-next="s2-part3">📸 我已拍好！</button>
                 </div>
             </div>
             
             <div id="s2-part3" class="hidden-group">
+                <div class="dialog" data-role="image" data-src="river_compare.jpg" data-desc="對比一下現在與過去還未整修好的樣態"></div>
+                
+                <div class="dialog" data-role="npc" data-content="不只是家變了，連住在家裡的『居民』也換人了。"></div>
+                <div class="dialog" data-role="npc" data-content="我聞到一股奇怪的味道，不是魚原本的鮮味，而是一種……很重的土味和金屬味。以前這裡有很多喜歡乾淨水的『毛蟹』和『塘鱧』，但我現在幾乎聽不到牠們的聲音了。"></div>
+                <div class="dialog" data-role="npc" data-content="霸佔這裡的，是一群穿著黑盔甲的怪物。"></div>
+                
+                <div class="dialog" data-role="system" data-content="📍 實地觀察挑戰：尋找水底黑影"></div>
+                <div class="dialog" data-role="npc" data-content="請往溪水中間，或是平緩的深水處仔細看。幫我找找水底有沒有黑色、靜止不動，或者貼著石頭移動的魚影。"></div>
+                <div class="dialog" data-role="npc" data-content="(提示：牠們通常看起來黑黑醜醜的，背上有硬刺，有時候會翻白肚吸在石頭上)"></div>
+                <div class="choice-point" data-id="q4-fish">
+                    <button data-val="A" data-next="s2-part4">🌑 黑色、像石頭一樣粗糙的大魚</button>
+                    <button data-val="B" data-next="s2-part4">🌫️ 什麼都沒有，水太混濁</button>
+                </div>
+            </div>
+            
+            <div id="s2-part4" class="hidden-group">
                 <div class="dialog" data-role="image" data-src="pleco_fish.jpg" data-desc="【圖鑑解鎖】生態殺手——琵琶鼠魚"></div>
-                <div class="dialog" data-role="npc" data-content="那是『**琵琶鼠魚**』(垃圾魚)。人類隨手倒進溪裡的『外星人』。"></div>
-                <div class="dialog" data-role="npc" data-content="牠們像強力吸塵器一樣，把石頭上的藻類全部吸光，我們本土的 **台灣馬口魚**、**日本禿頭鯊**（這是一種會洄游的小魚，不是真的鯊魚喔！）還有 **石賓魚**，因為搶不到食物，或者卵被牠們吃掉，就這樣慢慢消失了……"></div>
+                <div class="dialog" data-role="npc" data-content="你看到了嗎？那就是『**琵琶鼠魚**』，人類俗稱的垃圾魚。"></div>
+                <div class="dialog" data-role="npc" data-content="牠們不是這裡原本的居民，而是幾十年前被人們養在水族箱裡觀賞，覺得長太醜或太大隻，就隨手倒進溪裡的『外星人』。"></div>
+                <div class="dialog" data-role="npc" data-content="牠們的生命力強得可怕，就算水很髒也能活，還有像盔甲一樣硬的皮，這裡的鳥和原生魚類根本咬不動牠們。"></div>
+                <div class="dialog" data-role="npc" data-content="你知道最可怕的是什麼嗎？牠們像強力吸塵器一樣，把石頭上的藻類全部吸光，我們本土的 **台灣馬口魚**、**日本禿頭鯊**（這是一種會洄游的小魚，不是真的鯊魚喔！）還有 **石賓魚**，因為搶不到食物，或者卵被牠們吃掉，就這樣慢慢消失了……"></div>
                 
                 <div class="dialog" data-role="image" data-src="native_fish_group.jpg" data-desc="我們原本的鄰居：台灣馬口魚、日本禿頭鯊、石賓魚"></div>
                 
-                <div class="dialog" data-role="npc" data-content="雖然不能馬上把大樓推倒，但『看見』就是改變的開始。請幫我拍一張現在的河道，把記憶傳給未來。"></div>
+                <div class="dialog" data-role="npc" data-content="這條公司田溪，因為新市鎮開發城市變大了，但河道變窄了，又因為人類的棄養，原本的孩子們被趕走了。"></div>
+                <div class="dialog" data-role="npc" data-content="雖然我們不能馬上把這些大樓推倒，也不能瞬間把這些垃圾魚變不見，但『看見』就是改變的開始。"></div>
+                <div class="dialog" data-role="npc" data-content="這條溪還在呼吸，只是喘氣聲很重，請幫我拍一張現在的河道照片，把這個記憶傳給以後的人類，提醒他們，在追求繁榮的時候，別忘了留一點空間給原本住在這裡的鄰居。"></div>
+                
                 <div class="choice-point" data-id="s2-end">
                     <button data-action="nextStage">📸 拍好照片，前往下一站</button>
                 </div>
@@ -168,32 +194,54 @@
 
         <div data-stage="3" data-bg="bg-house" data-title="任務三：時光堡壘">
             <div class="dialog" data-role="system" data-content="📍 移動指引：請過橋後往回走，前往「程氏古厝」。"></div>
-            <div class="dialog" data-role="image" data-src="map_stage3.jpg" data-desc="路線圖：前往程氏古厝 (第三站)"></div>
+            <div class="dialog" data-role="image" data-src="map_stage3.jpg" data-desc="移動指引：前往程氏古厝"></div>
             
-            <div class="dialog" data-role="system" data-content="📍 地點：程氏古厝 (新民街一段 138 巷 7 號)"></div>
-            <div class="dialog" data-role="npc" data-content="汪！快進來！這座三合院像被按了暫停鍵，凍結在水泥叢林裡。"></div>
-            <div class="dialog" data-role="image" data-src="old_map.jpg" data-desc="古地圖中的淡水樣貌"></div>
-            <div class="dialog" data-role="npc" data-content="考考你：這座『程氏古厝』是什麼時候蓋好的？"></div>
-            <div class="choice-point" data-id="q5-year">
-                <button data-val="A" data-next="s3-part1">A. 1884年清法戰爭後</button>
-                <button data-val="B" data-next="s3-part1">B. 不可考，約光緒初年</button>
-                <button data-val="C" data-next="s3-part1">C. 日治時期</button>
+            <div class="choice-point" data-id="s3-arrival">
+                <button data-next="s3-part1">📍 我已抵達程氏古厝</button>
             </div>
-            
+
             <div id="s3-part1" class="hidden-group">
-                <div class="dialog" data-role="npc" data-content="雖然不知道精確生日，但它 **1884年** 就在這裡了。當年清軍就是利用這裡的地形痛擊法軍！"></div>
-                <div class="dialog" data-role="npc" data-content="既然是古戰場，房子肯定藏了機關。請觀察外牆，找找『不自然的孔洞』？"></div>
-                <div class="choice-point" data-id="q6-wall">
-                    <button data-val="A" data-next="s3-part2">A. 外窄內寬的小方孔</button>
-                    <button data-val="B" data-next="s3-part2">B. 像穿雨衣的瓦片牆</button>
-                    <button data-val="C" data-next="s3-part2">C. 牆角的小拱門</button>
+                <div class="dialog" data-role="system" data-content="📍 地點：程氏古厝（新民街一段 138 巷 7 號）"></div>
+                <div class="dialog" data-role="system" data-content="💡 建議位置：請站在古厝正前方的稻埕（廣場），面對正廳大門。"></div>
+                <div class="dialog" data-role="npc" data-content="汪！快進來！這裡可是我的秘密基地。"></div>
+                <div class="dialog" data-role="npc" data-content="你不覺得很神奇嗎？剛剛外面還是滿滿的高樓大廈（淡海新市鎮），轉進巷子裡，卻突然出現了這座三合院。就像是……有人按下了暫停鍵，把這一塊時間凍結起來了。"></div>
+                <div class="dialog" data-role="image" data-src="old_map.jpg" data-desc="古地圖中的淡水樣貌"></div>
+                
+                <div class="dialog" data-role="system" data-content="📍 解謎任務：失落的出生證明"></div>
+                <div class="dialog" data-role="npc" data-content="我先考考你一個問題。這座『程氏古厝』是什麼時候蓋好的？請你看看附近的解說牌，或是猜猜看。"></div>
+                <div class="choice-point" data-id="q5-year">
+                    <button data-val="A" data-next="s3-part2">A. 1884 年清法戰爭之後為了紀念勝利蓋的</button>
+                    <button data-val="B" data-next="s3-part2">B. 確切年份「不可考」，只知道大概是清朝光緒初年</button>
+                    <button data-val="C" data-next="s3-part2">C. 日治時期為了農業推廣蓋的</button>
                 </div>
             </div>
             
             <div id="s3-part2" class="hidden-group">
+                <div class="dialog" data-role="npc" data-content="雖然我們不知道它精確的生日，但我們確定它在 **1884 年** 就已經站在這裡了。那一年，這裡可是發生了一件大事。"></div>
+                <div class="dialog" data-role="npc" data-content="那一年，法國人的軍隊想要攻打淡水。這裡不只是種田的地方，更是清朝軍隊的『**北路營**』據點！"></div>
+                <div class="dialog" data-role="npc" data-content="當時的將軍孫開華，就是派兵埋伏在這一帶，利用這裡的樹林和溪流地形，把入侵的法國軍隊打得落花流水。所以，你現在踩的每一塊土地，以前都可能是古戰場喔！有沒有覺得腳底熱熱的？"></div>
+                
+                <div class="dialog" data-role="system" data-content="📍 實地觀察：尋找防禦的痕跡"></div>
+                <div class="dialog" data-role="npc" data-content="既然說是戰場和防禦據點，這房子肯定藏了一些機關。請你靠近牆壁仔細看。"></div>
+                <div class="dialog" data-role="npc" data-content="請觀察古厝外牆（特別是正廳兩側或護龍的石牆），尋找一些「不自然的孔洞」。請問你發現了什麼特別的構造？"></div>
+                <div class="choice-point" data-id="q6-wall">
+                    <button data-val="A" data-next="s3-part3">A. 牆壁上有一些外窄內寬的小方孔（銃孔）</button>
+                    <button data-val="B" data-next="s3-part3">B. 牆壁像是穿了一件瓦片做的雨衣（穿瓦衫）</button>
+                    <button data-val="C" data-next="s3-part3">C. 牆角有一個小小的拱門洞（貓洞）</button>
+                </div>
+            </div>
+            
+            <div id="s3-part3" class="hidden-group">
                 <div class="dialog" data-role="image" data-src="gun_hole.jpg" data-desc="牆上的防禦工事：銃孔"></div>
-                <div class="dialog" data-role="npc" data-content="這座房子是生存大師。用 **銃孔** 抵禦敵人，用 **穿瓦衫** 抵抗風雨。它像個倔強的老兵，守著當年的故事。"></div>
-                <div class="dialog" data-role="npc" data-content="離開前，請回頭再看一眼這座在水泥叢林裡倖存的堡壘。"></div>
+                <div class="dialog" data-role="npc" data-content="你發現了嗎？這座房子其實是個『**全能生存大師**』。"></div>
+                <div class="dialog" data-role="npc" data-content="它用『**銃孔**』抵禦敵人和強盜，用『**穿瓦衫**』抵抗淡水連綿的風雨，甚至還留了『**貓洞**』來對付偷吃米的老鼠。"></div>
+                <div class="dialog" data-role="npc" data-content="就是因為這樣『武裝到牙齒』，卻又懂得照顧生活的細節，它才能在 1884 年 那場激烈的戰火中倖存下來。當年的法軍攻不進來，後來的新市鎮開發也沒有推倒它。它就像個倔強的老兵，挺直腰桿站在這裡，只為了把這些故事親口告訴你。"></div>
+                
+                <div class="dialog" data-role="npc" data-content="雖然戰爭早就結束了，這座老房子也沒有變成廢墟。"></div>
+                <div class="dialog" data-role="npc" data-content="你看，它現在不只是古蹟，還是一個很有活力的文史工作室喔！現在裡面作為城市展演的空間，功能有藝文展覽、文史研究、木作教學、淡水導覽等，是非常有價值的文化傳承空間。"></div>
+                <div class="dialog" data-role="npc" data-content="這就是我喜歡這裡的原因。外面的新市鎮一直在變，大樓一直在蓋，但這座『程氏古厝』就像一個堅持不變的老頑固，守著漢人來開墾的記憶，也守著當年保衛家園的故事。"></div>
+                
+                <div class="dialog" data-role="npc" data-content="離開前，請你回頭再看一眼這座在水泥叢林裡倖存的紅磚堡壘，把它記在腦海裡，證明我們來過。"></div>
                 <div class="choice-point" data-id="s3-end">
                     <button data-action="nextStage">📸 拍照留念</button>
                 </div>
@@ -202,20 +250,30 @@
 
         <div data-stage="4" data-bg="bg-sunset" data-title="結尾：時空膠囊">
             <div class="dialog" data-role="npc" data-content="汪……我的訊號快中斷了。"></div>
-            <div class="dialog" data-role="npc" data-content="你今天看見了溪流的傷痕，也看見了古厝的榮耀。"></div>
-            <div class="dialog" data-role="npc" data-content="我是地縛靈離不開這裡，但我想邀請你做最後一件事。請為這片土地，留一句給『未來』的話。"></div>
+            <div class="dialog" data-role="npc" data-content="今天我們走了好長一段路。從被誤解名字的公司田溪，看到被水泥和外來種魚類佔據的河道，最後來到這座在那場 1884 年 戰火中活下來的古厝。"></div>
+            <div class="dialog" data-role="npc" data-content="你知道嗎？很多人走過這條步道，只看到雜草和水溝；許多人經過那座老房子，只覺得它陳舊，跟旁邊嶄新的大樓格格不入。"></div>
+            <div class="dialog" data-role="npc" data-content="但你不一樣。你現在看見了它的傷痕（水泥護岸），也看見了它的榮耀（銃孔與歷史）。"></div>
+            
+            <div class="dialog" data-role="system" data-content="📍 最終抉擇：時空膠囊"></div>
+            <div class="dialog" data-role="npc" data-content="我是這裡的地縛靈，我離不開這裡。但我希望你能把這裡的故事帶走。"></div>
+            <div class="dialog" data-role="npc" data-content="在這條溪流被完全遺忘之前，我想邀請你做最後一件事。請在這片土地上，留下一句給『未來』的話。"></div>
+            <div class="dialog" data-role="npc" data-content="你希望未來的公司田溪變成什麼樣子？"></div>
+            
             <div class="choice-point" data-id="q7-wish">
-                <button data-val="A" data-action="nextStage">A. 希望泥土和螃蟹的家回來</button>
-                <button data-val="B" data-action="nextStage">B. 希望人們繼續說著老故事</button>
-                <button data-val="C" data-action="nextStage">C. 希望人類與自然和平共存</button>
+                <button data-val="A" data-action="nextStage">A. 希望水泥能少一點，讓泥土和螃蟹的家回來</button>
+                <button data-val="B" data-action="nextStage">B. 希望新市鎮的人們，能繼續說著古厝與河流的老故事</button>
+                <button data-val="C" data-action="nextStage">C. 希望人類與自然，能找到一個不互相傷害的共存方式</button>
             </div>
         </div>
 
         <div data-stage="5" data-bg="bg-final" data-title="終章">
-            <div class="dialog" data-role="system" data-content="✨ 系統提示：您的願望已存入「淡水土地記憶庫」。"></div>
+            <div class="dialog" data-role="system" data-content="✨ 系統提示：您的願望已加密，存入「淡水土地記憶庫」。"></div>
             <div class="dialog" data-role="system" data-content="🏅 獲得稱號：【公司田溪的記憶守望者】"></div>
-            <div class="dialog" data-role="npc" data-content="汪！收到了。以後吃『阿給』時，別忘了這條溪流和老房子喔。"></div>
+            <div class="dialog" data-role="npc" data-content="汪！收到了。這是一個很棒的願望。"></div>
+            <div class="dialog" data-role="npc" data-content="以後當你經過淡水，吃著那碗跟我名字一樣的『阿給』時，別忘了這條溪流，還有那座倔強的老房子。"></div>
+            <div class="dialog" data-role="system" data-content="✨ 任務完成。感謝您的參與。走出螢幕，現在換你用自己的雙眼，繼續守護這片風景。"></div>
             <div class="dialog" data-role="image" data-src="ending.jpg" data-desc="感謝參與，我們下次再見"></div>
+            
             <div class="choice-point" data-id="end-game">
                 <button onclick="clearStorageAndReload()">🔄 重新開始旅程</button>
             </div>
