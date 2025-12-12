@@ -1,6 +1,6 @@
 let currentStage = 0;
 
-// 背景圖對應表
+// 背景圖對應表 (建議確認這些圖片是否已準備好，否則會使用預設底圖)
 const bgImages = {
     'bg-stream-old': 'https://images.unsplash.com/photo-1518116901802-53d971550993?q=80&w=1974&auto=format&fit=crop',
     'bg-cement': 'https://images.unsplash.com/photo-1565626424177-8c3666d33a75?q=80&w=1974&auto=format&fit=crop',
@@ -9,39 +9,47 @@ const bgImages = {
     'bg-final': 'https://images.unsplash.com/photo-1518098268026-4e1491a43282?q=80&w=1974&auto=format&fit=crop'
 };
 
+// 完整的回饋文字庫
 const feedbacks = {
+    // Stage 1 Q1: 公司田溪的意思
     'q1-company': {
-        'A': '阿給：「哈哈，被誤導了吧！現代確實很多公司，但這名字更老喔。」',
-        'B': '阿給：「不是喔！雖然聽起來很像公家單位。」',
-        'C': '阿給：「汪！真聰明！你的直覺很準！」'
+        'A': '阿給：「哈哈，你跟大部分的人類一樣，都被現代的名詞誤導了！」',
+        'B': '阿給：「哈哈，你跟大部分的人類一樣，都被現代的名詞誤導了！」',
+        'C': '阿給：「汪！真聰明！你的直覺很準喔！」'
     },
+    // Stage 1 Q2: 觀察環境 (兩者回饋相同，劇情會接下去)
     'q2-observe': {
-        'A': '阿給：「汪……希望你說的是錯的，但遺憾的是，這確實是現在的樣子。」',
-        'B': '阿給：「沒錯，閉上眼似乎還能聽到以前行船的聲音呢。」'
+        'A': '阿給：「不管是哪一種景象，這條溪都曾是灌溉這片土地的『母親河』。它以前可是支撐了好幾個聚落，養活了無數人呢。」',
+        'B': '阿給：「不管是哪一種景象，這條溪都曾是灌溉這片土地的『母親河』。它以前可是支撐了好幾個聚落，養活了無數人呢。」'
     },
+    // Stage 2 Q1: 河岸材質
     'q3-material': {
-        'A': '阿給：「我很希望你是對的...但以前的泥土岸邊已經不見了。」',
-        'B': '阿給：「沒錯，冰冷的水泥。像個巨大的灰色浴缸。」',
-        'C': '阿給：「紅樹林是在下游喔，這裡已經變成水泥牆了。」'
+        'A': '阿給：「汪……我很希望你說的是對的，那確實是它三百年前的樣子，以前這裡的岸邊是軟軟的泥土，大石頭上長滿了會呼吸的青苔，螃蟹最喜歡在下面鑽洞了， 但很遺憾，現在是水泥牆了。」',
+        'B': '阿給：「沒錯，就是冷冰冰的水泥。 而且你不覺得這裡看起來很像……一個巨大的灰色浴缸，或者是大型排水溝嗎？」',
+        'C': '阿給：「汪……我很希望你說的是對的，但紅樹林是在下游喔，這裡已經變成水泥牆了。」'
     },
+    // Stage 2 Q2: 尋找黑影 (選項觸發後都接續劇情)
     'q4-fish': {
         'A': '阿給：「你看到了。那就是這裡現在的霸主。」',
         'B': '阿給：「水很混濁吧？但如果你仔細看，還是能發現那些黑影。」'
     },
+    // Stage 3 Q1: 古厝年份
     'q5-year': {
-        'A': '阿給：「不對唷，它比那場戰爭還要早一點存在。」',
-        'B': '阿給：「賓果！這就是它最神秘的地方，確切年份不可考。」',
-        'C': '阿給：「太晚囉！它可是見證過清朝歷史的老爺爺。」'
+        'A': '阿給：「不對唷!其實這個地方神秘的點就在於其實不確定他精準的建造時間。」',
+        'B': '阿給：「賓果！你也找不到答案對吧？這就是它最神秘的地方。」',
+        'C': '阿給：「不對唷!其實這個地方神秘的點就在於其實不確定他精準的建造時間。」'
     },
+    // Stage 3 Q2: 牆上構造
     'q6-wall': {
-        'A': '阿給：「觀察敏銳！那是『銃孔』，以前用來射擊防禦的。」',
-        'B': '阿給：「那是『穿瓦衫』，也很特別，但我想讓你找的是更兇猛的設計。」',
-        'C': '阿給：「那是給我朋友走的『貓洞』啦！不過戰爭時有更重要的設計。」'
+        'A': '阿給：「你的觀察力真敏銳！沒錯，那個就是**『銃孔』**（槍眼）。以前這裡除了要打仗，平時還要防備盜匪。這個洞設計成『外面小、裡面大』，這樣裡面的人可以拿槍往各個角度射擊，但外面的子彈卻很難打進來。這可是早期的居家保全系統呢！」',
+        'B': '阿給：「汪！那個也很特別！因為淡水太常下雨了，泥土做的牆壁容易壞，所以人們幫房子穿上了一件『瓦片雨衣』。不過，我想讓你找的是更兇猛一點的東西……再仔細看看牆上的小洞？」',
+        'C': '阿給：「汪！那是給我朋友走的啦！那是讓貓咪進去抓老鼠的通道。不過在戰爭時期，這裡還有更重要的防禦設計喔……」'
     },
+    // Stage 4: 許願 (無特定差別回饋，都接續系統提示)
     'q7-wish': {
-        'A': '阿給：「這是一個很溫柔的願望，螃蟹們會感謝你的。」',
-        'B': '阿給：「故事被記得，歷史就活著。謝謝你。」',
-        'C': '阿給：「共存是最難也最重要的課題。很好的願望。」'
+        'A': '', // 系統會統一處理
+        'B': '',
+        'C': ''
     }
 };
 
@@ -175,7 +183,8 @@ function showChoices(element) {
 function handleChoiceResult(choiceId, val, nextPartId, action) {
     const chatFlow = document.getElementById('chat-flow');
 
-    if (choiceId && feedbacks[choiceId] && feedbacks[choiceId][val]) {
+    // 檢查是否有回饋文字，且回饋文字不為空
+    if (choiceId && feedbacks[choiceId] && feedbacks[choiceId][val] && feedbacks[choiceId][val] !== '') {
         const feedbackText = feedbacks[choiceId][val];
         setTimeout(() => {
             const bubble = document.createElement('div');
@@ -186,6 +195,7 @@ function handleChoiceResult(choiceId, val, nextPartId, action) {
         }, 500);
     }
 
+    // 處理後續動作
     setTimeout(() => {
         if (action === 'nextStage') {
             currentStage++;
@@ -200,7 +210,7 @@ function handleChoiceResult(choiceId, val, nextPartId, action) {
                 processQueue(elements);
             }
         }
-    }, 2000); 
+    }, 1500); // 等待時間
 }
 
 function addPlayerBubble(text) {
@@ -232,7 +242,7 @@ function toggleMenu() {
 function clearStorageAndReload() {
     if (confirm('確定要重置所有進度嗎？（相簿也會清空）')) {
         localStorage.removeItem('tamsuiStage');
-        localStorage.removeItem('tamsuiAlbum'); // 清除相簿
+        localStorage.removeItem('tamsuiAlbum'); 
         window.location.reload();
     }
 }
