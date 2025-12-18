@@ -1,9 +1,7 @@
 /**
- * 全局變數控制
+ * 全局變數
  */
 let currentStage = 0;
-let sessionID = 0;   // 核心控制：標記「現在是第幾次遊戲」，防止舊對話干擾
-let activeTimers = []; // 儲存所有計時器 ID
 
 // 背景圖設定
 const bgImages = {
@@ -21,9 +19,9 @@ const feedbacks = {
         'B': '阿給：「哈哈，你跟大部分的人類一樣，都被現代的名詞誤導了！」',
         'C': '阿給：「汪！真聰明！你的直覺很準喔！」'
     },
-    'q2-observe': { 'A': '', 'B': '' }, // 留空避免重複
+    'q2-observe': { 'A': '', 'B': '' }, 
     'q3-material': {
-        'A': '阿給：「汪……我很希望你說的是對的，那確實是它三百年前的樣子，以前這裡的岸邊是軟軟的泥土，大石頭上長滿了會呼吸的青苔，螃蟹最喜歡在下面鑽洞了， 但很遺憾，現在是水泥牆了。」',
+        'A': '阿給：「汪……我很希望你說的是對的，那確實是它三百年前的樣子，以前這裡的岸邊是軟軟的泥土，大石頭上長滿了會呼吸的青苔，螃蟹最喜歡在下面鑽洞了， 但很遺憾，現在是水泥牆了。 」',
         'B': '阿給：「沒錯，就是冷冰冰的水泥。 而且你不覺得這裡看起來很像……一個巨大的灰色浴缸，或者是大型排水溝嗎？」',
         'C': '阿給：「汪……我很希望你說的是對的，但紅樹林是在下游喔，這裡已經變成水泥牆了。」'
     },
@@ -44,84 +42,91 @@ const feedbacks = {
     'q7-wish': { 'A': '', 'B': '', 'C': '' }
 };
 
+// 初始化：檢查網址是否有 ?stage=X 參數
 document.addEventListener('DOMContentLoaded', () => {
-    loadGame();
-    // 點擊任意處關閉選單
+    // 綁定點擊關閉選單
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.menu-container')) {
             document.getElementById('dropdown-menu').classList.add('hidden');
         }
     });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const stageParam = urlParams.get('stage');
+
+    if (stageParam) {
+        // 如果網址有指定章節，直接載入該章節 (跳過歡迎頁)
+        const stageNum = parseInt(stageParam);
+        currentStage = stageNum;
+        document.getElementById('welcome-card').style.display = 'none';
+        loadStage(stageNum);
+    } else {
+        // 否則讀取存檔
+        loadGame();
+    }
 });
 
+// 讀取存檔 (僅用於顯示歡迎頁的提示文字)
 function loadGame() {
     const savedStage = localStorage.getItem('tamsuiStage');
     const resumeInfo = document.getElementById('resume-info');
     if (savedStage && parseInt(savedStage) > 0) {
-        currentStage = parseInt(savedStage);
-        resumeInfo.innerText = `📄 偵測到上次進度：Stage ${currentStage}`;
+        resumeInfo.innerText = `📄 偵測到上次進度：Stage ${savedStage}`;
     } else {
         resumeInfo.innerText = "";
     }
 }
 
+// 開始遊戲按鈕 (讀取存檔或從頭開始)
 function startGame() {
-    if (currentStage === 0) currentStage = 1;
-    document.getElementById('welcome-card').style.display = 'none';
-    loadStage(currentStage);
+    const savedStage = localStorage.getItem('tamsuiStage');
+    let target = 1;
+    if (savedStage && parseInt(savedStage) > 0) {
+        target = parseInt(savedStage);
+    }
+    // 使用網址跳轉
+    jumpToStage(target);
 }
 
 /**
- * 核心工具：自定義計時器 (可被強制清除)
+ * 核心功能：跳轉章節 (暴力重整法)
+ * 這會重新載入頁面，保證沒有任何舊程式碼干擾
  */
-function setGameTimeout(callback, delay) {
-    const id = setTimeout(() => {
-        callback();
-        activeTimers = activeTimers.filter(t => t !== id);
-    }, delay);
-    activeTimers.push(id);
-    return id;
+function jumpToStage(stageNum) {
+    // 儲存進度
+    localStorage.setItem('tamsuiStage', stageNum);
+    
+    // 取得當前網址路徑 (不含參數)
+    const baseUrl = window.location.href.split('?')[0];
+    
+    // 強制重整頁面並帶入參數
+    window.location.href = `${baseUrl}?stage=${stageNum}`;
 }
 
 /**
- * 核心工具：暴力清除所有計時器
- */
-function clearAllTimers() {
-    activeTimers.forEach(id => clearTimeout(id));
-    activeTimers = [];
-}
-
-/**
- * 核心功能：載入章節
+ * 載入章節 (現在只負責渲染，因為計時器問題已被重整頁面解決)
  */
 function loadStage(stageNum) {
-    // 1. 重要：更換 Session ID，立刻讓舊的 processQueue 失效
-    sessionID++; 
-    
-    // 2. 清除所有正在跑的計時器
-    clearAllTimers();
-
-    // 3. 取得新章節資料
     const stageData = document.querySelector(`#script-data div[data-stage="${stageNum}"]`);
+    
+    // 防呆：如果找不到章節 (例如參數錯誤)，回到首頁
     if (!stageData) {
-        console.error("❌ 找不到章節數據: " + stageNum);
-        alert("找不到該章節資料，請檢查程式碼是否完整。");
+        window.location.href = window.location.href.split('?')[0]; 
         return;
     }
 
-    // 4. 更新畫面
+    // 更新介面
     const bgKey = stageData.getAttribute('data-bg');
     const title = stageData.getAttribute('data-title');
     changeBackground(bgKey);
     document.querySelector('.stage-title').innerText = title;
 
-    // 5. 儲存狀態
-    currentStage = stageNum;
-    localStorage.setItem('tamsuiStage', currentStage);
+    // 存檔
+    localStorage.setItem('tamsuiStage', stageNum);
 
-    // 6. 讀取並執行對話
+    // 開始對話
     const initialElements = Array.from(stageData.children).filter(el => !el.classList.contains('hidden-group'));
-    processQueue(initialElements, sessionID);
+    processQueue(initialElements);
 }
 
 function changeBackground(bgKey) {
@@ -135,20 +140,15 @@ function changeBackground(bgKey) {
 /**
  * 遞迴處理對話隊列
  */
-async function processQueue(elements, mySessionID) {
-    // 雙重保險：如果 Session ID 變了，代表已經切換章節，立刻停止執行
-    if (mySessionID !== sessionID) return;
+async function processQueue(elements) {
     if (elements.length === 0) return;
 
     const el = elements[0];
     const remaining = elements.slice(1);
 
     if (el.classList.contains('dialog')) {
-        await showBubble(el, mySessionID);
-        // 顯示完一句話後，再次檢查 ID
-        if (mySessionID === sessionID) {
-            processQueue(remaining, mySessionID);
-        }
+        await showBubble(el);
+        processQueue(remaining);
     } else if (el.classList.contains('choice-point')) {
         showChoices(el);
     }
@@ -157,10 +157,8 @@ async function processQueue(elements, mySessionID) {
 /**
  * 顯示對話氣泡
  */
-function showBubble(element, mySessionID) {
+function showBubble(element) {
     return new Promise(resolve => {
-        if (mySessionID !== sessionID) return; // 三重保險
-
         const role = element.getAttribute('data-role');
         const content = element.getAttribute('data-content');
         const chatFlow = document.getElementById('chat-flow');
@@ -172,7 +170,9 @@ function showBubble(element, mySessionID) {
         } else if (role === 'image') {
             const src = element.getAttribute('data-src');
             const desc = element.getAttribute('data-desc');
+            
             saveUnlockedImage(src, desc);
+
             bubble.classList.add('image-msg');
             bubble.setAttribute('onclick', `openLightbox('${src}', '${desc}')`);
             bubble.innerHTML = `
@@ -185,9 +185,8 @@ function showBubble(element, mySessionID) {
         chatFlow.appendChild(bubble);
         scrollToBottom();
 
-        // 使用可被中斷的 setGameTimeout
         const delay = role === 'image' ? 800 : Math.min(content.length * 50 + 500, 2000);
-        setGameTimeout(resolve, delay);
+        setTimeout(resolve, delay);
     });
 }
 
@@ -217,34 +216,32 @@ function showChoices(element) {
     });
 
     controlsArea.classList.remove('hidden');
-    setGameTimeout(scrollToBottom, 100);
+    setTimeout(scrollToBottom, 100);
 }
 
 function handleChoiceResult(choiceId, val, nextPartId, action) {
     const chatFlow = document.getElementById('chat-flow');
-    
-    // 只有在回饋不為空時才顯示
+
     if (choiceId && feedbacks[choiceId] && feedbacks[choiceId][val] && feedbacks[choiceId][val] !== '') {
-        setGameTimeout(() => {
-            if (sessionID !== sessionID) return;
+        const feedbackText = feedbacks[choiceId][val];
+        setTimeout(() => {
             const bubble = document.createElement('div');
             bubble.classList.add('bubble', 'npc');
-            bubble.innerHTML = `<span class="npc-name">阿給</span>${parseText(feedbacks[choiceId][val])}`;
+            bubble.innerHTML = `<span class="npc-name">阿給</span>${parseText(feedbackText)}`;
             chatFlow.appendChild(bubble);
             scrollToBottom();
         }, 500);
     }
 
-    setGameTimeout(() => {
-        if (sessionID !== sessionID) return; // 確保沒有跳關
+    setTimeout(() => {
         if (action === 'nextStage') {
-            document.getElementById('chat-flow').innerHTML = '';
-            loadStage(currentStage + 1);
+            // 這裡也使用暴力跳轉，確保下一關是乾淨的
+            jumpToStage(currentStage + 1);
         } else if (nextPartId) {
             const nextGroup = document.getElementById(nextPartId);
             if (nextGroup) {
                 const elements = Array.from(nextGroup.children);
-                processQueue(elements, sessionID);
+                processQueue(elements);
             }
         }
     }, 1500); 
@@ -277,11 +274,11 @@ function toggleMenu() {
 }
 
 function clearStorageAndReload() {
-    // 這裡保留確認，因為這是毀滅性操作
-    if (confirm('確定要刪除所有紀錄重來嗎？')) {
+    if (confirm('確定要重置所有進度嗎？（相簿也會清空）')) {
         localStorage.removeItem('tamsuiStage');
         localStorage.removeItem('tamsuiAlbum'); 
-        window.location.reload();
+        // 回到首頁 (不帶參數)
+        window.location.href = window.location.href.split('?')[0];
     }
 }
 
@@ -324,26 +321,6 @@ function openAlbum() {
 function openChapters() {
     document.getElementById('dropdown-menu').classList.add('hidden');
     document.getElementById('chapter-modal').classList.remove('hidden');
-}
-
-// ⚠️ 重要修正：直接跳轉，移除 confirm
-function jumpToStage(stageNum) {
-    console.log("嘗試跳轉到章節:", stageNum);
-    
-    // 1. 關閉視窗
-    closeModal('chapter-modal');
-    
-    // 2. 隱藏歡迎卡片
-    document.getElementById('welcome-card').style.display = 'none';
-    
-    // 3. 強制清空聊天介面
-    document.getElementById('chat-flow').innerHTML = '';
-    
-    // 4. 隱藏選項區
-    document.getElementById('controls-area').classList.add('hidden');
-    
-    // 5. 執行載入
-    loadStage(stageNum);
 }
 
 function closeModal(modalId) {
